@@ -1,0 +1,33 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: node-port-controller
+  namespace: node-port-controller
+  labels:
+    build: node-port-controller
+spec:
+    tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: 'node-port-controller:latest'
+
+---
+
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: node-port-controller-build
+  namespace: node-port-controller
+  labels:
+    build: node-port-controller-build
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'node-port-controller:latest'
+  strategy:
+    type: Docker
+  source:
+    type: Binary
+    binary: {}

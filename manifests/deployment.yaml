@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-port-controller
+  labels:
+    app: node-port-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-port-controller
+  template:
+    metadata:
+      labels:
+        app: node-port-controller
+    spec:
+      serviceAccountName: node-port-controller
+      containers:
+        - name: node-port-controller
+          image: image-registry.openshift-image-registry.svc:5000/node-port-controller/node-port-controller:latest
+          imagePullPolicy: IfNotPresent
